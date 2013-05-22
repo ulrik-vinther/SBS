@@ -1,0 +1,14 @@
+﻿
+
+Missing items:
+
+Textboxes:
+	FirstName
+	LastName
+	InterestRate
+
+
+TextChanged autoupdate dataset
+
+Button "Update interest":
+	update ALL account interests
