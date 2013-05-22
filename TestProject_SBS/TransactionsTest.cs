@@ -103,7 +103,7 @@ namespace TestProject_SBS
             Decimal transactAmount = new Decimal(100); // REM
             string errorMsg = string.Empty; // REM
             string errorMsgExpected = string.Empty; // REM
-            Decimal expected = new Decimal(300); // REM
+            Decimal expected = new Decimal(400); // REM
             Decimal actual;
             actual = target.calculateTransact(transactType, accountBalance, transactAmount, out errorMsg);
             Assert.AreEqual(errorMsgExpected, errorMsg);
