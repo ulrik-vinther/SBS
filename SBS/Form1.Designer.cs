@@ -38,13 +38,13 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.textBox_FirstName = new System.Windows.Forms.TextBox();
-            this.textBox_LastName = new System.Windows.Forms.TextBox();
-            this.textBox_InterestRate = new System.Windows.Forms.TextBox();
-            this.label_FirstName = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
             this.label_AccountNumber = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label_FirstName = new System.Windows.Forms.Label();
+            this.textBox_InterestRate = new System.Windows.Forms.TextBox();
+            this.textBox_LastName = new System.Windows.Forms.TextBox();
+            this.textBox_FirstName = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -158,44 +158,14 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Account Information";
             // 
-            // textBox_FirstName
+            // label_AccountNumber
             // 
-            this.textBox_FirstName.Location = new System.Drawing.Point(136, 60);
-            this.textBox_FirstName.Name = "textBox_FirstName";
-            this.textBox_FirstName.Size = new System.Drawing.Size(100, 20);
-            this.textBox_FirstName.TabIndex = 8;
-            // 
-            // textBox_LastName
-            // 
-            this.textBox_LastName.Location = new System.Drawing.Point(136, 86);
-            this.textBox_LastName.Name = "textBox_LastName";
-            this.textBox_LastName.Size = new System.Drawing.Size(100, 20);
-            this.textBox_LastName.TabIndex = 9;
-            // 
-            // textBox_InterestRate
-            // 
-            this.textBox_InterestRate.Location = new System.Drawing.Point(136, 112);
-            this.textBox_InterestRate.Name = "textBox_InterestRate";
-            this.textBox_InterestRate.Size = new System.Drawing.Size(100, 20);
-            this.textBox_InterestRate.TabIndex = 10;
-            // 
-            // label_FirstName
-            // 
-            this.label_FirstName.AutoSize = true;
-            this.label_FirstName.Location = new System.Drawing.Point(33, 63);
-            this.label_FirstName.Name = "label_FirstName";
-            this.label_FirstName.Size = new System.Drawing.Size(67, 13);
-            this.label_FirstName.TabIndex = 11;
-            this.label_FirstName.Text = "First Name";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(33, 89);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(67, 13);
-            this.label4.TabIndex = 12;
-            this.label4.Text = "Last Name";
+            this.label_AccountNumber.AutoSize = true;
+            this.label_AccountNumber.Location = new System.Drawing.Point(14, 21);
+            this.label_AccountNumber.Name = "label_AccountNumber";
+            this.label_AccountNumber.Size = new System.Drawing.Size(101, 13);
+            this.label_AccountNumber.TabIndex = 14;
+            this.label_AccountNumber.Text = "Account Number";
             // 
             // label5
             // 
@@ -206,14 +176,44 @@
             this.label5.TabIndex = 13;
             this.label5.Text = "Interest Rate";
             // 
-            // label_AccountNumber
+            // label4
             // 
-            this.label_AccountNumber.AutoSize = true;
-            this.label_AccountNumber.Location = new System.Drawing.Point(14, 21);
-            this.label_AccountNumber.Name = "label_AccountNumber";
-            this.label_AccountNumber.Size = new System.Drawing.Size(101, 13);
-            this.label_AccountNumber.TabIndex = 14;
-            this.label_AccountNumber.Text = "Account Number";
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(33, 89);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(67, 13);
+            this.label4.TabIndex = 12;
+            this.label4.Text = "Last Name";
+            // 
+            // label_FirstName
+            // 
+            this.label_FirstName.AutoSize = true;
+            this.label_FirstName.Location = new System.Drawing.Point(33, 63);
+            this.label_FirstName.Name = "label_FirstName";
+            this.label_FirstName.Size = new System.Drawing.Size(67, 13);
+            this.label_FirstName.TabIndex = 11;
+            this.label_FirstName.Text = "First Name";
+            // 
+            // textBox_InterestRate
+            // 
+            this.textBox_InterestRate.Location = new System.Drawing.Point(136, 112);
+            this.textBox_InterestRate.Name = "textBox_InterestRate";
+            this.textBox_InterestRate.Size = new System.Drawing.Size(100, 20);
+            this.textBox_InterestRate.TabIndex = 10;
+            // 
+            // textBox_LastName
+            // 
+            this.textBox_LastName.Location = new System.Drawing.Point(136, 86);
+            this.textBox_LastName.Name = "textBox_LastName";
+            this.textBox_LastName.Size = new System.Drawing.Size(100, 20);
+            this.textBox_LastName.TabIndex = 9;
+            // 
+            // textBox_FirstName
+            // 
+            this.textBox_FirstName.Location = new System.Drawing.Point(136, 60);
+            this.textBox_FirstName.Name = "textBox_FirstName";
+            this.textBox_FirstName.Size = new System.Drawing.Size(100, 20);
+            this.textBox_FirstName.TabIndex = 8;
             // 
             // Form1
             // 
@@ -226,7 +226,7 @@
             this.Controls.Add(this.label2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Name = "Form1";
-            this.Text = "SBS";
+            this.Text = "Small Banking System";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

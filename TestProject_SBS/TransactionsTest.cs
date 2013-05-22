@@ -17,6 +17,7 @@ namespace TestProject_SBS
     public class TransactionsTest
     {
 
+        // Stubs
         DataSet accountsDS;
         string accountsXmlFile = "c:\\SBSAccounts.xml";
         string errorMsg = "";
