@@ -118,7 +118,7 @@ namespace SBS
                 lastInterestUpdate = DateTime.Today;
                 label2.Text = "Last interest update: " + lastInterestUpdate.Date.ToShortDateString();
                 decimal interestRate = 0.01m;
-                decimal balance = Transactions.calculateTransact(100, Convert.ToDecimal(label1.Text), interestRate, out errorMsg);
+                decimal balance = Transactions.calculateTransact(3, Convert.ToDecimal(label1.Text), interestRate, out errorMsg);
                 label1.Text = balance.ToString("0.00");
 
             }

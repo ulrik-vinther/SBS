@@ -20,8 +20,8 @@ namespace TestProject_SBS
         // Stubs
         DataSet accountsDS;
         string accountsXmlFile = "c:\\SBSAccounts.xml";
-        string errorMsg = "";
-        DateTime lastInterestUpdate;
+        //string errorMsg = "";
+        //DateTime lastInterestUpdate;
 
 
         public void loadAccounts()
@@ -33,7 +33,7 @@ namespace TestProject_SBS
                 //comboBox1.DataSource = accountsDS.Tables["Table1"];
                 //comboBox1.DisplayMember = "AccountNumber";
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
             }
@@ -99,11 +99,11 @@ namespace TestProject_SBS
         {
             Transactions target = new Transactions(); 
             int transactType = 1; // WithDraw
-            Decimal accountBalance = new Decimal(500); // REM
-            Decimal transactAmount = new Decimal(100); // REM
+            Decimal accountBalance = new Decimal(10000); // REM
+            Decimal transactAmount = new Decimal(9000); // REM
             string errorMsg = string.Empty; // REM
             string errorMsgExpected = string.Empty; // REM
-            Decimal expected = new Decimal(400); // REM
+            Decimal expected = new Decimal(1000); // REM
             Decimal actual;
             actual = target.calculateTransact(transactType, accountBalance, transactAmount, out errorMsg);
             Assert.AreEqual(errorMsgExpected, errorMsg);
@@ -116,8 +116,8 @@ namespace TestProject_SBS
         {
             Transactions target = new Transactions(); // REM
             int transactType = 1; // WithDraw
-            Decimal accountBalance = new Decimal(500); // REM
-            Decimal transactAmount = new Decimal(600); /**
+            Decimal accountBalance = new Decimal(10000); // REM
+            Decimal transactAmount = new Decimal(11000); /**
                                                         * Withdraw more than the current balance
                                                         * This should not be possible, and must raise an error message.
                                                         */ 
@@ -125,13 +125,105 @@ namespace TestProject_SBS
             string errorMsgExpected = "The current balance is " + accountBalance + "\r\n\n" +
                                   "Your withdrawal of " + transactAmount +
                                   " is not possible at this time !! \r\n\n Please withdraw a lower amount.";
-            Decimal expected = new Decimal(500); // REM
+            Console.WriteLine(errorMsg);
+            Decimal expected = new Decimal(10000); // REM
             Decimal actual;
             actual = target.calculateTransact(transactType, accountBalance, transactAmount, out errorMsg);
             Assert.AreEqual(errorMsgExpected, errorMsg);
             Assert.AreEqual(expected, actual);
             //Assert.Inconclusive("Verify the correctness of this test method.");
         }
+
+
+        [TestMethod()]
+        public void calculateTransactTest_WithdrawNegativeAmount()
+        {
+            Transactions target = new Transactions(); // REM
+            int transactType = 1; // REM
+            Decimal accountBalance = new Decimal(10000); // REM
+            Decimal transactAmount = new Decimal(-1000); // REM
+            string errorMsg = string.Empty; // REM
+            string errorMsgExpected = string.Empty; // REM
+            Decimal expected = new Decimal(10000); // REM
+            Decimal actual;
+            actual = target.calculateTransact(transactType, accountBalance, transactAmount, out errorMsg);
+            Assert.AreEqual(errorMsgExpected, errorMsg);
+            Assert.AreEqual(expected, actual);
+        }
+
+
+        [TestMethod()]
+        public void calculateTransactTest_WithdrawBoundaryAmount()
+        {
+            Transactions target = new Transactions(); // REM
+            int transactType = 1; // REM
+            Decimal accountBalance = new Decimal(); // REM
+            Decimal transactAmount = new Decimal(); // REM
+            accountBalance = 0.01m;
+            transactAmount = 0.01m;
+            string errorMsg = string.Empty; // REM
+            string errorMsgExpected = string.Empty; // REM
+            Decimal expected = new Decimal(0); // REM
+            Decimal actual;
+            actual = target.calculateTransact(transactType, accountBalance, transactAmount, out errorMsg);
+            Assert.AreEqual(errorMsgExpected, errorMsg);
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod()]
+        public void calculateTransactTest_WithdrawIllegalBoundaryAmount()
+        {
+            Transactions target = new Transactions(); // REM
+            int transactType = 1; // REM
+            Decimal accountBalance = new Decimal(); // REM
+            Decimal transactAmount = new Decimal(); // REM
+            accountBalance = 0;
+            transactAmount = 0.01m;
+            string errorMsg = string.Empty; // REM
+            string errorMsgExpected = "The current balance is " + accountBalance + "\r\n\n" +
+                                  "Your withdrawal of " + transactAmount +
+                                  " is not possible at this time !! \r\n\n Please withdraw a lower amount.";
+            Decimal expected = new Decimal(0); // REM
+            Decimal actual;
+            actual = target.calculateTransact(transactType, accountBalance, transactAmount, out errorMsg);
+            Assert.AreEqual(errorMsgExpected, errorMsg);
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod()]
+        public void calculateTransactTest_DepositPositiveAmount()
+        {
+            Transactions target = new Transactions(); // REM
+            int transactType = 2; // REM
+            Decimal accountBalance = new Decimal(10000); // REM
+            Decimal transactAmount = new Decimal(1000); // REM
+            string errorMsg = string.Empty; // REM
+            string errorMsgExpected = string.Empty; // REM
+            Decimal expected = new Decimal(11000); // REM
+            Decimal actual;
+            actual = target.calculateTransact(transactType, accountBalance, transactAmount, out errorMsg);
+            Assert.AreEqual(errorMsgExpected, errorMsg);
+            Assert.AreEqual(expected, actual);
+        }
+
+
+        [TestMethod()]
+        public void calculateTransactTest_DepositNegativeAmount()
+        {
+            Transactions target = new Transactions(); // REM
+            int transactType = 2; // REM
+            Decimal accountBalance = new Decimal(10000); // REM
+            Decimal transactAmount = new Decimal(-1000); // REM
+            string errorMsg = string.Empty; // REM
+            string errorMsgExpected = string.Empty; // REM
+            Decimal expected = new Decimal(10000); // REM
+            Decimal actual;
+            actual = target.calculateTransact(transactType, accountBalance, transactAmount, out errorMsg);
+            Assert.AreEqual(errorMsgExpected, errorMsg);
+            Assert.AreEqual(expected, actual);
+        }
+
+
 
 
 
@@ -149,7 +241,6 @@ namespace TestProject_SBS
         //    actual = target.calculateTransact(transactType, accountBalance, transactAmount, out errorMsg);
         //    Assert.AreEqual(errorMsgExpected, errorMsg);
         //    Assert.AreEqual(expected, actual);
-        //    Assert.Inconclusive("Verify the correctness of this test method.");
         //}
 
 

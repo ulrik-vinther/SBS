@@ -48,7 +48,7 @@ namespace SBS
                         return accountBalance;
                     }
 
-                case 100:
+                case 3:
                     {
                         if (transactAmount > 0)
                         {
