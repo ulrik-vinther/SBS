@@ -97,6 +97,7 @@ namespace TestProject_SBS
         [TestMethod()]
         public void calculateTransactTest_WithdrawAllowedAmount()
         {
+            Console.WriteLine("TestID 1");
             Transactions target = new Transactions(); 
             int transactType = 1; // WithDraw
             Decimal accountBalance = new Decimal(10000); // REM
@@ -114,6 +115,7 @@ namespace TestProject_SBS
         [TestMethod()]
         public void calculateTransactTest_WithdrawIllegalAmount()
         {
+            Console.WriteLine("TestID 2");
             Transactions target = new Transactions(); // REM
             int transactType = 1; // WithDraw
             Decimal accountBalance = new Decimal(10000); // REM
@@ -138,6 +140,7 @@ namespace TestProject_SBS
         [TestMethod()]
         public void calculateTransactTest_WithdrawNegativeAmount()
         {
+            Console.WriteLine("TestID 3");
             Transactions target = new Transactions(); // REM
             int transactType = 1; // REM
             Decimal accountBalance = new Decimal(10000); // REM
@@ -151,10 +154,14 @@ namespace TestProject_SBS
             Assert.AreEqual(expected, actual);
         }
 
-
+        /**
+         * The next two tests are Black-box boundary tests 
+         */
+        
         [TestMethod()]
         public void calculateTransactTest_WithdrawBoundaryAmount()
         {
+            Console.WriteLine("TestID 4:boundary");
             Transactions target = new Transactions(); // REM
             int transactType = 1; // REM
             Decimal accountBalance = new Decimal(); // REM
@@ -173,6 +180,7 @@ namespace TestProject_SBS
         [TestMethod()]
         public void calculateTransactTest_WithdrawIllegalBoundaryAmount()
         {
+            Console.WriteLine("TestID 5:boundary");
             Transactions target = new Transactions(); // REM
             int transactType = 1; // REM
             Decimal accountBalance = new Decimal(); // REM
@@ -190,9 +198,14 @@ namespace TestProject_SBS
             Assert.AreEqual(expected, actual);
         }
 
+        /**
+         * the end of black-box boundary test
+         */
+
         [TestMethod()]
         public void calculateTransactTest_DepositPositiveAmount()
         {
+            Console.WriteLine("TestID 4");
             Transactions target = new Transactions(); // REM
             int transactType = 2; // REM
             Decimal accountBalance = new Decimal(10000); // REM
@@ -210,6 +223,7 @@ namespace TestProject_SBS
         [TestMethod()]
         public void calculateTransactTest_DepositNegativeAmount()
         {
+            Console.WriteLine("TestID 5");
             Transactions target = new Transactions(); // REM
             int transactType = 2; // REM
             Decimal accountBalance = new Decimal(10000); // REM
@@ -225,24 +239,71 @@ namespace TestProject_SBS
 
 
 
+        /// <summary>
+        ///A test for calculateTransact
+        ///</summary>
+        [TestMethod()]
+        public void calculateTransactTest_interesAddingAfterAYear()
+        {
+            Console.WriteLine("TestID 6");
+            Transactions target = new Transactions(); // TODO: Initialize to an appropriate value
+            int transactType = 3; // TODO: Initialize to an appropriate value
+            Decimal accountBalance = new Decimal(10000); // TODO: Initialize to an appropriate value
+            Decimal transactAmount = new Decimal(0.1); // TODO: Initialize to an appropriate value
+            string errorMsg = string.Empty; // TODO: Initialize to an appropriate value
+            string errorMsgExpected = string.Empty; // TODO: Initialize to an appropriate value
+            string lastInterestDate = Convert.ToString(DateTime.Today.AddDays(-365).Date); // TODO: Initialize to an appropriate value
+            Decimal expected = new Decimal(11000); // TODO: Initialize to an appropriate value
+            Decimal actual;
+            actual = target.calculateTransact(transactType, accountBalance, transactAmount, out errorMsg, lastInterestDate);
+            Assert.AreEqual(errorMsgExpected, errorMsg);
+            Assert.AreEqual(expected, actual);
+            //Assert.Inconclusive("Verify the correctness of this test method.");
+        }
 
 
-        //[TestMethod()]
-        //public void calculateTransactTest()
-        //{
-        //    Transactions target = new Transactions(); // REM
-        //    int transactType = 0; // REM
-        //    Decimal accountBalance = new Decimal(); // REM
-        //    Decimal transactAmount = new Decimal(); // REM
-        //    string errorMsg = string.Empty; // REM
-        //    string errorMsgExpected = string.Empty; // REM
-        //    Decimal expected = new Decimal(); // REM
-        //    Decimal actual;
-        //    actual = target.calculateTransact(transactType, accountBalance, transactAmount, out errorMsg);
-        //    Assert.AreEqual(errorMsgExpected, errorMsg);
-        //    Assert.AreEqual(expected, actual);
-        //}
+        [TestMethod()]
+        public void calculateTransactTest_interesAddingUnderAYear()
+        {
+            Console.WriteLine("TestID 7");
+            Transactions target = new Transactions(); 
+            int transactType = 3; 
+            Decimal accountBalance = new Decimal(10000); 
+            Decimal transactAmount = new Decimal(0.1); 
+            string errorMsg = string.Empty; 
+            string errorMsgExpected = "It has not been a year since last interest adding !!";
+            string lastInterestDate = Convert.ToString(DateTime.Today.AddDays(-364).Date); 
+            Decimal expected = new Decimal(10000); 
+            Decimal actual;
+            actual = target.calculateTransact(transactType, accountBalance, transactAmount, out errorMsg, lastInterestDate);
+            Assert.AreEqual(errorMsgExpected, errorMsg);
+            Assert.AreEqual(expected, actual);
+            Console.WriteLine(errorMsg);
 
+          }
+
+        [TestMethod()]
+        //[ExpectedException(typeof(interestAddingException))]  
+        public void calculateTransactTest_interesAddingWithNoDate()
+        {
+            Console.WriteLine("TestID 8");
+            Transactions target = new Transactions(); 
+            int transactType = 3; 
+            Decimal accountBalance = new Decimal(10000); 
+            Decimal transactAmount = new Decimal(0.1); 
+            string errorMsg = string.Empty;
+            string errorMsgExpected = "The last date of interest adding is missing !!";
+            string lastInterestDate = string.Empty; 
+            Decimal expected = new Decimal(10000); 
+            Decimal actual;
+            /// We expect the accountBalance to remain unchanged, as we cannot see the last date of interest update
+            /// The method must throw the interestAddingException
+            actual = target.calculateTransact(transactType, accountBalance, transactAmount, out errorMsg, lastInterestDate);
+            Assert.AreEqual(errorMsgExpected, errorMsg);
+            Assert.AreEqual(expected, actual);
+            Console.WriteLine(errorMsg);
+
+          }
 
     }
 }

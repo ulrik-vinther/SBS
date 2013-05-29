@@ -27,58 +27,6 @@ namespace SBS
         DateTime lastInterestUpdate;
 
 
-        //private decimal calculateTransact(int transactType, decimal accountBalance, decimal transactAmount)
-        //{
-        //    switch (transactType) 
-        //    {
-        //        case 1:
-        //            {
-        //                if (transactAmount > 0)
-        //                {
-        //                    decimal newBalance = accountBalance - transactAmount;
-        //                    if (newBalance < 0)
-        //                    {
-        //                        MessageBox.Show("The current balance is " + accountBalance + "\r\n\n" +
-        //                          "Your withdrawal of " + transactAmount +
-        //                          " is not possible at this time !! \r\n\n Please withdraw a lower amount.");
-        //                        return accountBalance;
-        //                    }
-        //                    else
-        //                    {
-        //                        accountBalance = newBalance;
-        //                        maskedTextBox_transactAmount.Text = "";
-        //                        return newBalance;
-        //                    }
-        //                }
-        //                return accountBalance;
-        //            } 
-        //        case 2:
-        //            {
-        //                if (transactAmount > 0)
-        //                {
-        //                    accountBalance = accountBalance+transactAmount;
-        //                    maskedTextBox_transactAmount.Text = "";
-        //                    return accountBalance;
-        //                }
-        //                return accountBalance;
-        //            }
-
-        //        case 100:
-        //            {
-        //                if (transactAmount > 0)
-        //                {
-        //                    decimal interest = accountBalance * transactAmount;
-        //                    accountBalance = accountBalance + interest;
-        //                    return accountBalance;
-        //                }
-
-        //                return accountBalance;
-        //            }
-        //}
-        //    return accountBalance;
-        //}
-
-
         private void button1_Click(object sender, EventArgs e)
         {
             if (maskedTextBox_transactAmount.Text != "")
@@ -111,18 +59,24 @@ namespace SBS
 
         private void button3_Click(object sender, EventArgs e)
         {
-            DateTime today = DateTime.Today;
-            TimeSpan diffd = today - lastInterestUpdate;
-            if (diffd.TotalDays >= 365)
-            {
-                lastInterestUpdate = DateTime.Today;
-                label2.Text = "Last interest update: " + lastInterestUpdate.Date.ToShortDateString();
-                decimal interestRate = 0.01m;
-                decimal balance = Transactions.calculateTransact(3, Convert.ToDecimal(label1.Text), interestRate, out errorMsg);
-                label1.Text = balance.ToString("0.00");
+                decimal interestRate = Convert.ToDecimal(textBox_InterestRate.Text);
+                decimal balance = Transactions.calculateTransact(3, Convert.ToDecimal(label1.Text), interestRate, out errorMsg, Convert.ToString(lastInterestUpdate.Date));  //
+                
+            
+                if (errorMsg != "")
+                {
+                    MessageBox.Show(errorMsg);
+                    errorMsg = "";
+                }
+                else
+                {
+                    lastInterestUpdate = DateTime.Today;
+                    label2.Text = "Last interest update: " + lastInterestUpdate.Date.ToShortDateString();
+                    label1.Text = balance.ToString("0.00");
+                    accountsDS.Tables["Table1"].Rows[comboBox1.SelectedIndex].SetField<string>("Balance", label1.Text);
+                    writeAccounts();
+                }
 
-            }
-            else { MessageBox.Show("It has not been a year since last interest adding !!"); }
 
         }
 
@@ -178,8 +132,34 @@ namespace SBS
             textBox_FirstName.Text = accountsDS.Tables["Table1"].Rows[comboBox1.SelectedIndex].Field<string>("FirstName");
             textBox_LastName.Text = accountsDS.Tables["Table1"].Rows[comboBox1.SelectedIndex].Field<string>("LastName");
             textBox_InterestRate.Text = accountsDS.Tables["Table1"].Rows[comboBox1.SelectedIndex].Field<string>("InterestRate");
-
+            
         }
+
+        private void comboBox1_TextChanged(object sender, EventArgs e)
+        {
+            lastInterestUpdate = DateTime.Today.AddYears(-1);
+            label2.Text = "Last interest update: " + lastInterestUpdate.Date.ToShortDateString();
+        }
+
+        private void textBox_FirstName_Leave(object sender, EventArgs e)
+        {
+            accountsDS.Tables["Table1"].Rows[comboBox1.SelectedIndex].SetField<string>("FirstName", textBox_FirstName.Text);
+            writeAccounts();
+        }
+
+        private void textBox_LastName_Leave(object sender, EventArgs e)
+        {
+            accountsDS.Tables["Table1"].Rows[comboBox1.SelectedIndex].SetField<string>("LastName", textBox_LastName.Text);
+            writeAccounts();
+        }
+
+        private void textBox_InterestRate_Leave(object sender, EventArgs e)
+        {
+            accountsDS.Tables["Table1"].Rows[comboBox1.SelectedIndex].SetField<string>("InterestRate", textBox_InterestRate.Text);
+            writeAccounts();
+        }
+
+
 
 
 

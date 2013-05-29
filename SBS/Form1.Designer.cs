@@ -139,6 +139,7 @@
             this.comboBox1.Size = new System.Drawing.Size(121, 21);
             this.comboBox1.TabIndex = 7;
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            this.comboBox1.TextChanged += new System.EventHandler(this.comboBox1_TextChanged);
             // 
             // groupBox3
             // 
@@ -200,6 +201,7 @@
             this.textBox_InterestRate.Name = "textBox_InterestRate";
             this.textBox_InterestRate.Size = new System.Drawing.Size(100, 20);
             this.textBox_InterestRate.TabIndex = 10;
+            this.textBox_InterestRate.Leave += new System.EventHandler(this.textBox_InterestRate_Leave);
             // 
             // textBox_LastName
             // 
@@ -207,6 +209,7 @@
             this.textBox_LastName.Name = "textBox_LastName";
             this.textBox_LastName.Size = new System.Drawing.Size(100, 20);
             this.textBox_LastName.TabIndex = 9;
+            this.textBox_LastName.Leave += new System.EventHandler(this.textBox_LastName_Leave);
             // 
             // textBox_FirstName
             // 
@@ -214,6 +217,7 @@
             this.textBox_FirstName.Name = "textBox_FirstName";
             this.textBox_FirstName.Size = new System.Drawing.Size(100, 20);
             this.textBox_FirstName.TabIndex = 8;
+            this.textBox_FirstName.Leave += new System.EventHandler(this.textBox_FirstName_Leave);
             // 
             // Form1
             // 
